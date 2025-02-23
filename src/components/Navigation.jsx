@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
+import { useAuthContext } from "../context/FireAuthContext";
 
-const Navigation = ({ isAuth }) => {
+const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { handleSignOut, isAuth } = useAuthContext();
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
@@ -27,9 +29,18 @@ const Navigation = ({ isAuth }) => {
 
           {/* Login Button - Always Visible */}
           <div className="absolute right-0">
-            <button className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md">
-              <Link to="/login">Login</Link>
-            </button>
+            {isAuth ? (
+              <button
+                onClick={() => handleSignOut()}
+                className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md"
+              >
+                Log out
+              </button>
+            ) : (
+              <button className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md">
+                <Link to="/login">Login</Link>
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}

@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import Navigation from "../components/Navigation";
+import { useAuthContext } from "../context/FireAuthContext";
 
-function Home({ isAuth }) {
+function Home() {
+  const { isAuth } = useAuthContext();
   return (
     <div>
       <Navigation />

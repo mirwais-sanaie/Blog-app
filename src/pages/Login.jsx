@@ -1,18 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
-import { auth, googleProvider } from "../config/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { useAuthContext } from "../context/FireAuthContext";
 
-function Login({ isAuth, setIsAuth }) {
-  const navigate = useNavigate();
-
-  function handleSignIn() {
-    signInWithPopup(auth, googleProvider).then(() => {
-      setIsAuth(true);
-      navigate("/");
-    });
-  }
+function Login() {
+  const { handleSignIn, isAuth } = useAuthContext();
   return (
     <div>
       <Navigation />
