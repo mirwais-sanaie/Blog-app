@@ -1,39 +1,41 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import Navigation from "../components/Navigation";
 import { useAuthContext } from "../context/FireAuthContext";
 import { getDocs } from "firebase/firestore";
+import { usePostsContext } from "../context/CreatePostProv";
 
 function Home() {
   const { isAuth } = useAuthContext();
-  const [posts, setPosts] = useState([]);
-  const { collectionDb } = useAuthContext();
+  const { posts, setPosts, collectionDb } = usePostsContext();
 
-  useEffect(
-    function () {
-      // Fetch posts only if they are not already fetched
-      if (posts.length === 0) {
-        async function getPosts() {
-          try {
-            const data = await getDocs(collectionDb);
-            setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-          } catch (e) {
-            console.log(e.message);
-          }
+  useEffect(() => {
+    // Fetch posts only if they are not already fetched
+    if (isAuth && posts.length === 0) {
+      async function getPosts() {
+        try {
+          const data = await getDocs(collectionDb);
+          setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        } catch (e) {
+          console.log(e.message);
         }
-        getPosts();
       }
-    },
-    [collectionDb, posts.length, setPosts] // Add dependencies
-  );
+      getPosts();
+    }
+  }, [isAuth, collectionDb, posts.length, setPosts]);
+
   return (
     <div>
       <Navigation />
-      <h1 className="mt-20">Home page{isAuth ? "" : "you are not log in"}</h1>
-      {posts &&
-        posts.length > 0 &&
-        posts.map((post) => <Post post={post} key={post.id} />)}
+      <h1 className="mt-20">
+        Home page{isAuth ? "" : " you are not logged in"}
+      </h1>
+      {posts.length > 0 ? (
+        posts.map((post) => <Post post={post} key={post.id} />)
+      ) : (
+        <p>No posts available</p>
+      )}
     </div>
   );
 }

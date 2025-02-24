@@ -4,23 +4,33 @@ import { addDoc } from "firebase/firestore";
 import { auth } from "../config/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/FireAuthContext";
+import { usePostsContext } from "../context/CreatePostProv";
+
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
-  const { isAuth, collectionDb } = useAuthContext();
+  const { isAuth } = useAuthContext();
+  const { posts, setPosts, collectionDb } = usePostsContext();
 
   async function createpost() {
     try {
-      await addDoc(collectionDb, {
+      const newPost = {
         title,
         content,
         author: {
           name: auth.currentUser.displayName,
           id: auth.currentUser.uid,
         },
-      });
+      };
+
+      const docRef = await addDoc(collectionDb, newPost);
+      // Update the global state (posts) with the new post
+      setPosts([...posts, { ...newPost, id: docRef.id }]);
+      console.log(docRef.id);
+      // Navigate back to the home page
       navigate("/");
+      // Clear the form fields
       setContent("");
       setTitle("");
     } catch (e) {
@@ -33,7 +43,6 @@ function CreatePost() {
     if (!title || !content) return;
     createpost();
   }
-
   return (
     <div>
       <Navigation />
