@@ -3,14 +3,17 @@
 import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, googleProvider } from "../config/firebase";
+import { auth, db, googleProvider } from "../config/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
+import { collection } from "firebase/firestore";
 
 const AuthContext = createContext();
 
 function FireAuthContext({ children }) {
   const [isAuth, setIsAuth] = useState(false);
   const navigate = useNavigate();
+
+  const collectionDb = collection(db, "Posts");
 
   useEffect(function () {
     const savedAuth = localStorage.getItem("isAuth");
@@ -35,7 +38,9 @@ function FireAuthContext({ children }) {
   }
 
   return (
-    <AuthContext value={{ isAuth, setIsAuth, handleSignIn, handleSignOut }}>
+    <AuthContext
+      value={{ isAuth, setIsAuth, handleSignIn, handleSignOut, collectionDb }}
+    >
       {children}
     </AuthContext>
   );
