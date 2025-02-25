@@ -1,55 +1,28 @@
-import { useState } from "react";
 import Navigation from "../components/Navigation";
-import { addDoc } from "firebase/firestore";
-import { auth } from "../config/firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/FireAuthContext";
 import { usePostsContext } from "../context/CreatePostProv";
+import Loader from "./Loader";
 
 function CreatePost() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const navigate = useNavigate();
   const { isAuth } = useAuthContext();
-  const { posts, setPosts, collectionDb } = usePostsContext();
-
-  async function createpost() {
-    try {
-      const newPost = {
-        title,
-        content,
-        author: {
-          name: auth.currentUser.displayName,
-          id: auth.currentUser.uid,
-        },
-      };
-
-      const docRef = await addDoc(collectionDb, newPost);
-      // Update the global state (posts) with the new post
-      setPosts([...posts, { ...newPost, id: docRef.id }]);
-      console.log(docRef.id);
-      // Navigate back to the home page
-      navigate("/");
-      // Clear the form fields
-      setContent("");
-      setTitle("");
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
+  const { createpost, title, setTitle, content, setContent, isLoading } =
+    usePostsContext();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!title || !content) return;
     createpost();
   }
+
   return (
     <div>
       <Navigation />
 
       {isAuth ? (
-        <div id="webcrumbs">
-          <div className="w-[90%] lg:w-[40%] md:w-[60%] bg-white mx-auto rounded-lg shadow-lg p-8 mt-20">
+        <div className="mt-20">
+          {isLoading && <Loader />}
+          <div className="w-[90%] lg:w-[40%] md:w-[60%] bg-white mx-auto rounded-lg shadow-lg p-8 ">
             <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
               <div>
                 <h2 className="text-2xl font-semibold mb-6">

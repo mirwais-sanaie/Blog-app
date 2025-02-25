@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../config/firebase";
@@ -9,20 +9,20 @@ import { signInWithPopup, signOut } from "firebase/auth";
 const AuthContext = createContext();
 
 function FireAuthContext({ children }) {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const navigate = useNavigate();
 
-  useEffect(function () {
-    const savedAuth = localStorage.getItem("isAuth");
-    if (savedAuth === "true") {
-      setIsAuth(true);
-    }
-  }, []);
+  // useEffect(function () {
+  //   const savedAuth = ;
+  //   if (savedAuth === true) {
+  //     setIsAuth(true);
+  //   }
+  // }, []);
 
   function handleSignIn() {
     signInWithPopup(auth, googleProvider).then(() => {
       setIsAuth(true);
-      localStorage.setItem("isAuth", "true");
+      localStorage.setItem("isAuth", true);
       navigate("/");
     });
   }
