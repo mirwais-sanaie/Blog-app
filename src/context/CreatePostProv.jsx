@@ -1,6 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
-import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { createContext, useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../config/firebase";
@@ -64,6 +70,24 @@ export function PostsProvider({ children }) {
     }
   }
 
+  async function updatePost(id, updatedTitle, updatedContent) {
+    const postDoc = doc(db, "Posts", id);
+    try {
+      await updateDoc(postDoc, {
+        title: updatedTitle,
+        content: updatedContent,
+      });
+      const updatedPosts = posts.map((post) =>
+        post.id === id
+          ? { ...post, title: updatedTitle, content: updatedContent }
+          : post
+      );
+      setPosts(updatedPosts);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
   return (
     <PostsContext.Provider
       value={{
@@ -79,6 +103,7 @@ export function PostsProvider({ children }) {
         setIsLoading,
         isLoading,
         setImagePost,
+        updatePost,
       }}
     >
       {children}
