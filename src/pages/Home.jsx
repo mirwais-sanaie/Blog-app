@@ -15,7 +15,11 @@ function Home() {
         setIsLoading(true);
         try {
           const data = await getDocs(collectionDb);
-          setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+          const postsData = data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setPosts(postsData);
         } catch (e) {
           console.log(e.message);
         } finally {
@@ -24,7 +28,7 @@ function Home() {
       }
       getPosts();
     }
-  }, [collectionDb, posts.length, setPosts, setIsLoading]);
+  }, [collectionDb, setPosts, setIsLoading, posts.length]);
 
   return (
     <div>

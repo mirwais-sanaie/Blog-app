@@ -3,17 +3,34 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/FireAuthContext";
 import { usePostsContext } from "../context/CreatePostProv";
 import Loader from "./Loader";
+import { useState } from "react";
 
 function CreatePost() {
   const { isAuth } = useAuthContext();
-  const { createpost, title, setTitle, content, setContent, isLoading } =
-    usePostsContext();
+  const {
+    createpost,
+    title,
+    setTitle,
+    content,
+    setContent,
+    isLoading,
+    setImagePost,
+  } = usePostsContext();
+  const [fileName, setFileName] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!title || !content) return;
     createpost();
   }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagePost(file);
+      setFileName(file.name);
+    }
+  };
 
   return (
     <div>
@@ -71,8 +88,17 @@ function CreatePost() {
                           <p className="text-xs text-gray-500">
                             PDF, PNG, JPG or GIF (MAX. 10MB)
                           </p>
+                          {fileName && (
+                            <p className="text-sm text-red-500 mt-2">
+                              Selected file: {fileName}
+                            </p>
+                          )}
                         </div>
-                        <input type="file" className="hidden" />
+                        <input
+                          onChange={handleFileChange}
+                          type="file"
+                          className="hidden"
+                        />
                       </label>
                     </div>
                   </div>

@@ -2,8 +2,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { createContext, useContext, useMemo, useState } from "react";
-import { auth, db } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { auth, db } from "../config/firebase";
+import { storage } from "../config/appwrite";
+const BACKET_ID = "67bf47ef003621360df5";
 
 const PostsContext = createContext();
 
@@ -11,6 +13,7 @@ export function PostsProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imagePost, setImagePost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const collectionDb = useMemo(() => collection(db, "Posts"), []);
   const navigate = useNavigate();
@@ -27,9 +30,19 @@ export function PostsProvider({ children }) {
         },
       };
 
-      const docRef = await addDoc(collectionDb, newPost);
-      // Update the global state (posts) with the new post
-      setPosts([...posts, { ...newPost, id: docRef.id }]);
+      let imageUrl = null;
+      if (imagePost) {
+        const imageLoaded = await storage.createFile(
+          BACKET_ID,
+          "unique()",
+          imagePost
+        );
+        imageUrl = storage.getFileView(BACKET_ID, imageLoaded.$id);
+      }
+
+      const docRef = await addDoc(collectionDb, { ...newPost, imageUrl });
+
+      setPosts([...posts, { ...newPost, id: docRef.id, imageUrl }]);
     } catch (e) {
       console.log(e.message);
     } finally {
@@ -37,11 +50,11 @@ export function PostsProvider({ children }) {
       navigate("/");
       setContent("");
       setTitle("");
+      setImagePost(null);
     }
   }
 
   async function deletePost(id) {
-    console.log(id);
     const postDoc = doc(db, "Posts", id);
     try {
       await deleteDoc(postDoc);
@@ -65,6 +78,7 @@ export function PostsProvider({ children }) {
         setContent,
         setIsLoading,
         isLoading,
+        setImagePost,
       }}
     >
       {children}

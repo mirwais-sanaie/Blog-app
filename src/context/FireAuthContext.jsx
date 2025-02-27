@@ -12,13 +12,6 @@ function FireAuthContext({ children }) {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const navigate = useNavigate();
 
-  // useEffect(function () {
-  //   const savedAuth = ;
-  //   if (savedAuth === true) {
-  //     setIsAuth(true);
-  //   }
-  // }, []);
-
   function handleSignIn() {
     signInWithPopup(auth, googleProvider).then(() => {
       setIsAuth(true);

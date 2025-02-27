@@ -18,14 +18,15 @@ function Post({ post }) {
   return (
     <li className="w-full md:w-1/4 mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
       <div className="relative">
-        {/* <img
-            src="https://images.unsplash.com/photo-1615859131861-052f0641a60e"
-            alt="Post"
+        {post.imageUrl && (
+          <img
+            src={post.imageUrl}
+            alt={post.title}
             className="w-full h-[200px] object-cover"
-          /> */}
+          />
+        )}
         {isAuth && post.author.id === auth?.currentUser?.uid && (
           <div className="absolute top-2 right-2 flex flex-col">
-            {/*  */}
             <button
               className={`p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-red-100 transition-colors duration-300 group`}
               onClick={() => handleDelete(post.id)}
@@ -67,8 +68,6 @@ function Post({ post }) {
                 />
               </svg>
             </button>
-
-            {/*  */}
 
             <button className="p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-blue-100 transition-colors duration-300">
               <svg
