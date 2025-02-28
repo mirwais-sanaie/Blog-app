@@ -35,7 +35,7 @@ function Post({ post }) {
   }
 
   return (
-    <li className="w-full md:w-1/4 mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
+    <li className="w-full mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-100 hover:ring hover:ring-offset-2 hover:ring-stone-400">
       <div className="relative">
         {post.imageUrl && (
           <img

@@ -25,6 +25,28 @@ const Navigation = () => {
             >
               Create Post
             </NavLink>
+
+            <div className="relative w-[350px]">
+              <input
+                type="text"
+                placeholder="Search post..."
+                className="w-full py-2 px-3 pr-8 rounded-full text-sm focus:outline-none focus:ring-1 border border-black focus:ring-black focus:ring-offset-1"
+              />
+              <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
 
           {/* Login Button - Always Visible */}
@@ -89,12 +111,27 @@ const Navigation = () => {
             >
               Create Post
             </Link>
-            {/* <Link
-              to="login"
-              className="block px-3 py-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200"
-            >
-              Login
-            </Link> */}
+            <div className="relative w-[250px]">
+              <input
+                type="text"
+                placeholder="Search post..."
+                className="w-full py-1.5 px-3 pr-8 rounded-full text-sm focus:outline-none focus:ring-2 border border-black focus:ring-black focus:ring-offset-1"
+              />
+              <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>

@@ -42,13 +42,18 @@ function Home() {
         )}
       </div>
       <div className="container mx-auto pb-30">
-        <h1 className="mt-20 font-bold text-center text-3xl text-[#364153]">
-          Today&apos;s Posts
+        <h1 className="mt-25 font-WorkSans font-semibold text-center text-4xl text-[#364153]">
+          Blog App
         </h1>
+        <p className="text-stone-500 text-center md:max-w-3xl font-roboto px-2 sm:text-sm md:text-base my-4 mx-auto">
+          Explore and share your thoughts with our blog app! Create, edit, and
+          engage with posts, featuring user profiles and image uploads for a
+          personalized experience.
+        </p>
         {isLoading ? (
           <Loader />
         ) : (
-          <ul className="flex flex-col space-y-5 md:space-y-0 mt-6 px-7 md:flex-row flex-wrap md:gap-5">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
             {posts.length > 0 ? (
               posts.map((post) => <Post post={post} key={post.id} />)
             ) : (
