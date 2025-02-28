@@ -5,7 +5,7 @@ import { useAuthContext } from "../context/FireAuthContext";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { handleSignOut, isAuth } = useAuthContext();
+  const { handleSignOut, isAuth, user } = useAuthContext();
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
@@ -30,12 +30,26 @@ const Navigation = () => {
           {/* Login Button - Always Visible */}
           <div className="absolute right-0">
             {isAuth ? (
-              <button
-                onClick={() => handleSignOut()}
-                className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md"
-              >
-                Log out
-              </button>
+              <div className="flex space-x-3">
+                <div className="flex space-x-2 items-center text-sm text-stone-900">
+                  <span>
+                    {user?.photoURL && (
+                      <img
+                        src={user.photoURL}
+                        alt="Profile"
+                        className="w-9 h-9 rounded-full"
+                      />
+                    )}
+                  </span>
+                  <span>{user?.displayName}</span>
+                </div>
+                <button
+                  onClick={() => handleSignOut()}
+                  className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md"
+                >
+                  Log out
+                </button>
+              </div>
             ) : (
               <button className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md">
                 <Link to="/login">Login</Link>

@@ -4,10 +4,13 @@ import { getDocs } from "firebase/firestore";
 import { usePostsContext } from "../context/CreatePostProv";
 import Post from "./Post";
 import Loader from "./Loader";
+import Notification from "../components/Notification";
+import { useAuthContext } from "../context/FireAuthContext";
 
 function Home() {
   const { posts, setPosts, collectionDb, isLoading, setIsLoading } =
     usePostsContext();
+  const { showNotification, setShowNotification } = useAuthContext();
 
   useEffect(() => {
     if (posts.length === 0) {
@@ -31,8 +34,13 @@ function Home() {
   }, [collectionDb, setPosts, setIsLoading, posts.length]);
 
   return (
-    <div>
+    <div className="relative">
       <Navigation />
+      <div className="absolute">
+        {showNotification && (
+          <Notification onClose={() => setShowNotification(false)} />
+        )}
+      </div>
       <div className="container mx-auto pb-30">
         <h1 className="mt-20 font-bold text-center text-3xl text-[#364153]">
           Today&apos;s Posts
