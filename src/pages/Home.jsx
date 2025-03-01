@@ -3,10 +3,10 @@ import Navigation from "../components/Navigation";
 import { getDocs } from "firebase/firestore";
 import { usePostsContext } from "../context/CreatePostProv";
 import Post from "./Post";
-import Loader from "./Loader";
 import Notification from "../components/Notification";
 import { useAuthContext } from "../context/FireAuthContext";
 import Footer from "./Footer";
+import HomeLoader from "../components/HomeLoader";
 
 function Home() {
   const { posts, setPosts, collectionDb, isLoading, setIsLoading } =
@@ -52,7 +52,7 @@ function Home() {
           personalized experience.
         </p>
         {isLoading ? (
-          <Loader />
+          <HomeLoader />
         ) : (
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10 mx-3">
             {posts.length > 0 ? (

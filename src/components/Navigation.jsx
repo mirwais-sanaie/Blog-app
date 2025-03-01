@@ -119,6 +119,12 @@ const Navigation = () => {
             >
               Create Post
             </Link>
+            <NavLink
+              to="/about"
+              className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+            >
+              About
+            </NavLink>
             <div className="relative w-[250px]">
               <input
                 type="text"
