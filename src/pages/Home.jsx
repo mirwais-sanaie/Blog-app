@@ -6,6 +6,7 @@ import Post from "./Post";
 import Loader from "./Loader";
 import Notification from "../components/Notification";
 import { useAuthContext } from "../context/FireAuthContext";
+import Footer from "./Footer";
 
 function Home() {
   const { posts, setPosts, collectionDb, isLoading, setIsLoading } =
@@ -53,7 +54,7 @@ function Home() {
         {isLoading ? (
           <Loader />
         ) : (
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10 mx-3">
             {posts.length > 0 ? (
               posts.map((post) => <Post post={post} key={post.id} />)
             ) : (
@@ -62,6 +63,8 @@ function Home() {
           </ul>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import Login from "./pages/Login";
 import { PostsProvider } from "./context/CreatePostProv";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="createpost" element={<CreatePost />} />
         <Route path="login" element={<Login />} />
+        <Route path="about" element={<About />} />
         <Route path="*" element={<h1>Page not found</h1>} />
       </Routes>
     </PostsProvider>

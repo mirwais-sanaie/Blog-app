@@ -1,9 +1,10 @@
 import Navigation from "../components/Navigation";
-import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/FireAuthContext";
 import { usePostsContext } from "../context/CreatePostProv";
 import Loader from "./Loader";
 import { useState } from "react";
+import SecureCreatePost from "./SecureCreatePost";
+import Footer from "./Footer";
 
 function CreatePost() {
   const { isAuth } = useAuthContext();
@@ -55,7 +56,7 @@ function CreatePost() {
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="Enter your title"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition duration-200"
                     />
                   </div>
 
@@ -68,7 +69,7 @@ function CreatePost() {
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
                       placeholder="Write your message here..."
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition duration-200"
                     />
                   </div>
 
@@ -105,7 +106,7 @@ function CreatePost() {
 
                   <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-[1.02] transition-all duration-200"
+                    className="w-full bg-[#364153] text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform hover:scale-[1.02] transition-all duration-200"
                   >
                     Submit Feedback
                   </button>
@@ -115,15 +116,10 @@ function CreatePost() {
           </div>
         </div>
       ) : (
-        <div className="mt-30 text-center">
-          <h1 className="text-3xl font-bold mb-4">
-            First please Login to app to create posts :
-          </h1>
-          <button className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md">
-            <Link to={"/login"}>Login page</Link>
-          </button>
-        </div>
+        <SecureCreatePost />
       )}
+
+      <Footer />
     </div>
   );
 }

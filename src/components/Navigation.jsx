@@ -25,8 +25,14 @@ const Navigation = () => {
             >
               Create Post
             </NavLink>
+            <NavLink
+              to="/about"
+              className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+            >
+              About
+            </NavLink>
 
-            <div className="relative w-[350px]">
+            <div className="relative w-[350px] hidden lg:flex">
               <input
                 type="text"
                 placeholder="Search post..."
@@ -53,7 +59,7 @@ const Navigation = () => {
           <div className="absolute right-0">
             {isAuth ? (
               <div className="flex space-x-3">
-                <div className="flex space-x-2 items-center text-sm text-stone-900">
+                <div className="flex space-x-0.5 sm:space-x-1 items-center text-sm text-stone-900">
                   <span>
                     {user?.photoURL && (
                       <img
@@ -63,7 +69,9 @@ const Navigation = () => {
                       />
                     )}
                   </span>
-                  <span>{user?.displayName}</span>
+                  <span className="text-xs sm:text-base">
+                    {user?.displayName}
+                  </span>
                 </div>
                 <button
                   onClick={() => handleSignOut()}
