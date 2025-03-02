@@ -23,6 +23,7 @@ export function PostsProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const collectionDb = useMemo(() => collection(db, "Posts"), []);
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
   async function createpost() {
     setIsLoading(true);
@@ -33,6 +34,7 @@ export function PostsProvider({ children }) {
         author: {
           name: auth.currentUser.displayName,
           id: auth.currentUser.uid,
+          profImg: auth?.currentUser?.photoURL,
         },
       };
 
@@ -104,6 +106,8 @@ export function PostsProvider({ children }) {
         isLoading,
         setImagePost,
         updatePost,
+        searchQuery,
+        setSearchQuery,
       }}
     >
       {children}

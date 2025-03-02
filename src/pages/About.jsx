@@ -10,7 +10,6 @@ function About() {
           About Us
         </h1>
         <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-10">
-          {/* Image Section */}
           <div className="w-full md:w-1/2">
             <img
               src="../../public/about.webp"
@@ -19,7 +18,6 @@ function About() {
             />
           </div>
 
-          {/* Text Section */}
           <div className="w-full md:w-1/2">
             <p className="text-lg text-gray-700 leading-relaxed">
               Welcome to <span className="font-semibold">My Blog App</span>, a
@@ -35,7 +33,7 @@ function About() {
           </div>
         </div>
       </div>
-      <Footer /> {/* Add the Footer */}
+      <Footer />
     </div>
   );
 }

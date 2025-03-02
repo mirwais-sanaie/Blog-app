@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
 import { getDocs } from "firebase/firestore";
 import { usePostsContext } from "../context/CreatePostProv";
@@ -9,9 +9,17 @@ import Footer from "./Footer";
 import HomeLoader from "../components/HomeLoader";
 
 function Home() {
-  const { posts, setPosts, collectionDb, isLoading, setIsLoading } =
-    usePostsContext();
+  const {
+    posts,
+    setPosts,
+    collectionDb,
+    isLoading,
+    setIsLoading,
+    searchQuery,
+    setSearchQuery,
+  } = usePostsContext();
   const { showNotification, setShowNotification } = useAuthContext();
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
     if (posts.length === 0) {
@@ -34,9 +42,22 @@ function Home() {
     }
   }, [collectionDb, setPosts, setIsLoading, posts.length]);
 
+  useEffect(
+    function () {
+      setFilteredPosts(
+        posts.filter(
+          (post) =>
+            post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            post.content.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    },
+    [posts, searchQuery]
+  );
+
   return (
     <div className="relative">
-      <Navigation />
+      <Navigation searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className="absolute">
         {showNotification && (
           <Notification onClose={() => setShowNotification(false)} />
@@ -55,10 +76,10 @@ function Home() {
           <HomeLoader />
         ) : (
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10 mx-3">
-            {posts.length > 0 ? (
-              posts.map((post) => <Post post={post} key={post.id} />)
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => <Post post={post} key={post.id} />)
             ) : (
-              <p>No posts available</p>
+              <p className="py-30"></p>
             )}
           </ul>
         )}

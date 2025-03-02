@@ -3,7 +3,6 @@ import { useState } from "react";
 import { auth } from "../config/firebase";
 import { usePostsContext } from "../context/CreatePostProv";
 import { useAuthContext } from "../context/FireAuthContext";
-import { FaUserTie } from "react-icons/fa6";
 import TrashButton from "../components/TrashButton";
 import EditButton from "../components/EditButton";
 import EditInputs from "../components/EditInputs";
@@ -61,7 +60,13 @@ function Post({ post }) {
       </div>
       <div className="p-6">
         <p className="flex items-center space-x-1 mb-3">
-          <FaUserTie />
+          <img
+            width={"20px"}
+            height={"20px"}
+            className="rounded-full"
+            src={post.author.profImg}
+            alt=""
+          />
           <span>{post.author.name}</span>
         </p>
         {isEditing ? (

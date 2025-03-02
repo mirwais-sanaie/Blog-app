@@ -108,7 +108,7 @@ function CreatePost() {
                     type="submit"
                     className="w-full bg-[#364153] text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform hover:scale-[1.02] transition-all duration-200"
                   >
-                    Submit Feedback
+                    Post
                   </button>
                 </div>
               </div>
