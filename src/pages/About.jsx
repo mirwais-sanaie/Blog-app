@@ -12,7 +12,7 @@ function About() {
         <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-10">
           <div className="w-full md:w-1/2">
             <img
-              src="../../public/about.webp"
+              src="about.webp"
               alt="About Us"
               className="rounded-lg shadow-lg w-full h-auto"
             />
