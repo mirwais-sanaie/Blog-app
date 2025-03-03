@@ -16,17 +16,17 @@ function Footer() {
             >
               About
             </Link>
-            <Link
+            {/* <Link
               to="/contact"
               className="hover:text-gray-400 transition duration-200"
             >
               Contact
-            </Link>
+            </Link> */}
             <Link
-              to="/privacy"
+              to="/createpost"
               className="hover:text-gray-400 transition duration-200"
             >
-              Privacy Policy
+              Create Post
             </Link>
           </div>
         </div>
