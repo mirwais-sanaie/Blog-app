@@ -6,6 +6,7 @@ import { useAuthContext } from "../context/FireAuthContext";
 import TrashButton from "../components/TrashButton";
 import EditButton from "../components/EditButton";
 import EditInputs from "../components/EditInputs";
+import { Link } from "react-router-dom";
 
 function Post({ post }) {
   const { deletePost, updatePost } = usePostsContext();
@@ -35,64 +36,66 @@ function Post({ post }) {
 
   return (
     <li className="w-full mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-100 hover:ring hover:ring-offset-2 hover:ring-stone-400">
-      <div className="relative">
-        {post.imageUrl && (
-          <img
-            src={post.imageUrl}
-            alt={post.title}
-            className="w-full h-[200px] object-cover"
-          />
-        )}
-        {isAuth && post.author.id === auth?.currentUser?.uid && (
-          <div className="absolute top-2 right-2 flex flex-col">
-            <TrashButton
-              isLoading={isLoading}
-              post={post}
-              handleDelete={handleDelete}
+      <Link to={`/posts/${post.id}`}>
+        <div className="relative">
+          {post.imageUrl && (
+            <img
+              src={post.imageUrl}
+              alt={post.title}
+              className="w-full h-[200px] object-cover"
             />
-            <EditButton
-              isEditing={isEditing}
-              saveEdit={saveEdit}
-              handleIsEdit={handleIsEdit}
+          )}
+          {isAuth && post.author.id === auth?.currentUser?.uid && (
+            <div className="absolute top-2 right-2 flex flex-col">
+              <TrashButton
+                isLoading={isLoading}
+                post={post}
+                handleDelete={handleDelete}
+              />
+              <EditButton
+                isEditing={isEditing}
+                saveEdit={saveEdit}
+                handleIsEdit={handleIsEdit}
+              />
+            </div>
+          )}
+        </div>
+        <div className="p-6">
+          <p className="flex items-center space-x-1 mb-3">
+            <img
+              width={"20px"}
+              height={"20px"}
+              className="rounded-full"
+              src={post.author.profImg}
+              alt=""
             />
-          </div>
-        )}
-      </div>
-      <div className="p-6">
-        <p className="flex items-center space-x-1 mb-3">
-          <img
-            width={"20px"}
-            height={"20px"}
-            className="rounded-full"
-            src={post.author.profImg}
-            alt=""
-          />
-          <span>{post.author.name}</span>
-        </p>
-        {isEditing ? (
-          <>
-            <EditInputs
-              updateTitle={updateTitle}
-              setUpdateTitle={setUpdateTitle}
-              updateContent={updateContent}
-              setUpdateContent={setUpdateContent}
-              isEditing={isEditing}
-              saveEdit={saveEdit}
-              handleIsEdit={handleIsEdit}
-              isLoadingEdit={isLoadingEdit}
-            />
+            <span>{post.author.name}</span>
+          </p>
+          {isEditing ? (
+            <>
+              <EditInputs
+                updateTitle={updateTitle}
+                setUpdateTitle={setUpdateTitle}
+                updateContent={updateContent}
+                setUpdateContent={setUpdateContent}
+                isEditing={isEditing}
+                saveEdit={saveEdit}
+                handleIsEdit={handleIsEdit}
+                isLoadingEdit={isLoadingEdit}
+              />
 
-            {/*  */}
-          </>
-        ) : (
-          <>
-            <h2 className="text-xl font-semibold mb-3 hover:text-blue-600 transition-colors duration-300">
-              {post.title}
-            </h2>
-            <p className="text-gray-600 leading-relaxed">{post.content}</p>
-          </>
-        )}
-      </div>
+              {/*  */}
+            </>
+          ) : (
+            <>
+              <h2 className="text-xl font-semibold mb-3 hover:text-blue-600 transition-colors duration-300">
+                {post.title}
+              </h2>
+              <p className="text-gray-600 leading-relaxed">{post.content}</p>
+            </>
+          )}
+        </div>
+      </Link>
     </li>
   );
 }
