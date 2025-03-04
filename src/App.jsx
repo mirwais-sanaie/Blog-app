@@ -1,22 +1,29 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home";
-import CreatePost from "./pages/CreatePost";
-import Login from "./pages/Login";
 import { PostsProvider } from "./context/CreatePostProv";
-import About from "./pages/About";
+
+import { lazy, Suspense } from "react";
+import Loader from "./pages/Loader";
+
+const Home = lazy(() => import("./pages/Home"));
+const CreatePost = lazy(() => import("./pages/CreatePost"));
+const Login = lazy(() => import("./pages/Login"));
+const About = lazy(() => import("./pages/About"));
 
 function App() {
+  const location = useLocation();
   return (
-    <PostsProvider>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="createpost" element={<CreatePost />} />
-        <Route path="login" element={<Login />} />
-        <Route path="about" element={<About />} />
-        <Route path="*" element={<h1>Page not found</h1>} />
-      </Routes>
-    </PostsProvider>
+    <Suspense fallback={<Loader />} key={location.pathname}>
+      <PostsProvider>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="createpost" element={<CreatePost />} />
+          <Route path="login" element={<Login />} />
+          <Route path="about" element={<About />} />
+          <Route path="*" element={<h1>Page not found</h1>} />
+        </Routes>
+      </PostsProvider>
+    </Suspense>
   );
 }
 
