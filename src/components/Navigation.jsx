@@ -31,7 +31,9 @@ const Navigation = () => {
             onClick={toggleDarkMode}
             className={`absolute ${
               isAuth ? "right-35" : "right-20"
-            }  p-1 rounded-full ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}
+            }  w-8 h-8 outline-none focus:ring focus:ring-gray-800 focus:ring-offset-1 rounded-full ${
+              isDarkMode ? "bg-gray-700" : "bg-gray-200"
+            }`}
           >
             {isDarkMode ? "🌙" : "☀️"}
           </button>
@@ -40,7 +42,9 @@ const Navigation = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-300 transition-colors duration-200"
+              className={`${
+                isDarkMode ? "text-gray-100" : "text-gray-700"
+              } p-2 rounded-md  hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-300 transition-colors duration-200`}
             >
               <IoMenu className="h-6 w-6" />
             </button>
