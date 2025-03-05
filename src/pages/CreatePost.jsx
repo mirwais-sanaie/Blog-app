@@ -1,10 +1,9 @@
-import Navigation from "../components/Navigation";
 import { useAuthContext } from "../context/FireAuthContext";
 import { usePostsContext } from "../context/CreatePostProv";
 import Loader from "./Loader";
 import { useState } from "react";
 import SecureCreatePost from "./SecureCreatePost";
-import Footer from "./Footer";
+import { useDarkMode } from "../context/DarkModeContext";
 
 function CreatePost() {
   const { isAuth } = useAuthContext();
@@ -18,6 +17,7 @@ function CreatePost() {
     setImagePost,
   } = usePostsContext();
   const [fileName, setFileName] = useState("");
+  const { isDarkMode } = useDarkMode();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,14 +33,21 @@ function CreatePost() {
     }
   };
 
-  return (
-    <div>
-      <Navigation />
+  const whiteStyles =
+    "border-gray-300 focus:ring-gray-500 focus:border-gray-500";
+  const darkStyles =
+    "border-gray-50 focus:ring-gray-100 focus:border-gray-100 text-white placeholder:text-white";
 
+  return (
+    <div className={`${isDarkMode ? "bg-black text-white" : "bg-white"}`}>
       {isAuth ? (
-        <div className="mt-20">
+        <div className="pt-20 pb-20">
           {isLoading && <Loader />}
-          <div className="w-[90%] lg:w-[40%] md:w-[60%] bg-white mx-auto rounded-lg shadow-lg p-8 ">
+          <div
+            className={`${
+              isDarkMode ? "shadow-gray-700" : ""
+            } w-[90%] mt-2 lg:w-[40%] md:w-[60%] mx-auto rounded-lg shadow-lg p-8 `}
+          >
             <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
               <div>
                 <h2 className="text-2xl font-semibold mb-6">
@@ -56,7 +63,9 @@ function CreatePost() {
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="Enter your title"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition duration-200"
+                      className={`${
+                        isDarkMode ? darkStyles : whiteStyles
+                      } w-full px-4 py-2 border rounded-md focus:ring-2  transition duration-200`}
                     />
                   </div>
 
@@ -69,7 +78,9 @@ function CreatePost() {
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
                       placeholder="Write your message here..."
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition duration-200"
+                      className={`${
+                        isDarkMode ? darkStyles : whiteStyles
+                      } w-full px-4 py-2 border rounded-md focus:ring-2 transition duration-200`}
                     />
                   </div>
 
@@ -118,8 +129,6 @@ function CreatePost() {
       ) : (
         <SecureCreatePost />
       )}
-
-      <Footer />
     </div>
   );
 }

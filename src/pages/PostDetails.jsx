@@ -39,7 +39,7 @@ function PostDetails() {
 
   return (
     <div className="container mx-auto px-4 py-10">
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="max-w-2xl mt-20 mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Post Image */}
         {post.imageUrl && (
           <img
@@ -65,6 +65,12 @@ function PostDetails() {
           </div>
         </div>
       </div>
+      <button
+        onClick={() => window.history.back()}
+        className="w-[100px] mt-5 bg-[#364153] text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform hover:scale-[1.02] transition-all duration-200"
+      >
+        &#8592;Back
+      </button>
     </div>
   );
 }

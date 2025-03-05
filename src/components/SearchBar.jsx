@@ -1,7 +1,9 @@
 import { usePostsContext } from "../context/CreatePostProv";
+import { useDarkMode } from "../context/DarkModeContext";
 
 function SearchBar() {
   const { setSearchQuery, searchQuery } = usePostsContext();
+  const { isDarkMode } = useDarkMode();
   function handleSubmit(e) {
     e.preventDefault();
   }
@@ -16,7 +18,11 @@ function SearchBar() {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Search post..."
-        className="w-full py-2 px-3 pr-8 rounded-full text-sm focus:outline-none focus:ring-1 border border-black focus:ring-black focus:ring-offset-1"
+        className={`${
+          isDarkMode
+            ? "text-white border-gray focus:ring-gray-600 placeholder:text-white"
+            : " border-black focus:ring-black "
+        } border w-full py-2 px-3 pr-8 rounded-full text-sm focus:outline-none focus:ring-1  focus:ring-offset-1`}
       />
       <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-900 transition-colors duration-300 p-1 rounded-full hover:bg-gray-100">
         <svg

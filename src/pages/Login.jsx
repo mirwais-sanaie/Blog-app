@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
-import Navigation from "../components/Navigation";
 import { useAuthContext } from "../context/FireAuthContext";
 
 function Login() {
-  const { handleSignIn, isAuth } = useAuthContext();
+  const { handleSignIn } = useAuthContext();
   return (
     <div>
-      <Navigation />
-
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 to-blue-500">
+      <div className="min-h-svh flex items-center justify-center bg-gray-600">
         <div className="bg-white p-8 rounded-lg shadow-lg text-center">
           <h1 className="text-2xl font-bold mb-4 text-gray-800">
             Sign up With google
@@ -41,17 +38,6 @@ function Login() {
             </svg>
             Login with Google
           </button>
-
-          <div className="flex gap-5 mt-3 justify-center">
-            <button
-              className={`bg-gray-200 px-3 py-1 border border-black ${
-                !isAuth ? "" : "text-red-600 cursor-not-allowed"
-              }`}
-              disabled={!isAuth}
-            >
-              Sign in
-            </button>
-          </div>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ function LoginButton() {
       {isAuth ? (
         <div className="flex space-x-3">
           <div className="flex space-x-0.5 sm:space-x-1 items-center text-sm text-stone-900">
-            <span>
+            <span className="">
               {user?.photoURL && (
                 <img
                   src={user.photoURL}
@@ -18,17 +18,23 @@ function LoginButton() {
                 />
               )}
             </span>
-            <span className="text-xs sm:text-base">{user?.displayName}</span>
+            {/* <span
+              className={`text-xs sm:text-base ${
+                isDarkMode ? "text-gray-200" : "text-base"
+              }`}
+            >
+              {user?.displayName}
+            </span> */}
           </div>
           <button
             onClick={() => handleSignOut()}
-            className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md"
+            className="transition-all px-3 py-1 duration-200 hover:bg-gray-400 border border-gray-200 rounded-md"
           >
             Log out
           </button>
         </div>
       ) : (
-        <button className="transition-all px-3 py-1 duration-200 hover:bg-gray-100 border border-gray-200 rounded-md">
+        <button className="transition-all px-3 py-1 duration-200 hover:bg-gray-400 border border-gray-200 rounded-md">
           <Link to="/login">Login</Link>
         </button>
       )}

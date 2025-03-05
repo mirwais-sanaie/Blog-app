@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useDarkMode } from "../context/DarkModeContext";
 
 function Footer() {
+  const { isDarkMode } = useDarkMode();
   return (
-    <footer className="bg-gray-800 text-white py-6 mt-10">
+    <footer
+      className={`${
+        isDarkMode
+          ? "bg-black border-gray-700 text-white"
+          : "bg-gray-100 border-gray-100"
+      } backdrop-blur-md border-t py-6`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-center md:text-left mb-4 md:mb-0">
@@ -16,12 +24,6 @@ function Footer() {
             >
               About
             </Link>
-            {/* <Link
-              to="/contact"
-              className="hover:text-gray-400 transition duration-200"
-            >
-              Contact
-            </Link> */}
             <Link
               to="/createpost"
               className="hover:text-gray-400 transition duration-200"

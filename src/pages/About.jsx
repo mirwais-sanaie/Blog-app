@@ -1,12 +1,16 @@
-import Navigation from "../components/Navigation";
-import Footer from "./Footer";
+import { useDarkMode } from "../context/DarkModeContext";
 
 function About() {
+  const { isDarkMode } = useDarkMode();
   return (
-    <div>
-      <Navigation />
-      <div className="container mt-15 mx-auto px-4 py-10">
-        <h1 className="mb-12 font-WorkSans font-WorkSans font-semibold text-center text-4xl text-[#364153]">
+    <div
+      className={`
+          ${
+            isDarkMode ? "bg-black text-gray-100" : "text-[#364153]"
+          } min-h-screen`}
+    >
+      <div className={`container pt-30 mx-auto px-4 py-20`}>
+        <h1 className="mb-14 font-WorkSans font-WorkSans font-semibold text-center text-4xl ">
           About Us
         </h1>
         <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-10">
@@ -18,14 +22,18 @@ function About() {
             />
           </div>
 
-          <div className="w-full md:w-1/2">
-            <p className="text-lg text-gray-700 leading-relaxed">
+          <div
+            className={`${
+              isDarkMode ? "text-gray-300" : "text-gray-700"
+            } w-full md:w-1/2`}
+          >
+            <p className="text-lg leading-relaxed">
               Welcome to <span className="font-semibold">My Blog App</span>, a
               platform where you can share your thoughts, ideas, and experiences
               with the world. Our mission is to create a community of passionate
               writers and readers who inspire and learn from each other.
             </p>
-            <p className="text-lg text-gray-700 leading-relaxed mt-4">
+            <p className="text-lg leading-relaxed mt-4">
               Whether you&lsquo;re here to write your own posts or explore the
               creativity of others, we hope you find this space engaging and
               inspiring. Join us today and start sharing your story!
@@ -33,7 +41,6 @@ function About() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
